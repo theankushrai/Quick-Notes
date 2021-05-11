@@ -10,8 +10,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        this.findNavController(R.id.myNavHostFragment)
+    }
 
+    //System Back Button Will Run the same as Fragment Back
+    override fun onBackPressed() {
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        navController.navigateUp()
     }
 
 }
