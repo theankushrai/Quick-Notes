@@ -1,16 +1,14 @@
-package com.example.notesapp.Database
-
-import androidx.lifecycle.LiveData
+package com.example.notesapp.notes
 import androidx.room.*
 
 @Dao
 interface NoteDao {
 
     @Query("SELECT * FROM notes ORDER BY id DESC")
-    fun getAllNotes() : LiveData<List<Notes>>
+    suspend fun getAllNotes() : List<Notes>
 
     @Query("SELECT * FROM notes WHERE id =:id")
-    fun getSpecificNote(id:Int) : Notes
+    suspend fun getSpecificNote(id:Int) : Notes
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNotes(note:Notes)

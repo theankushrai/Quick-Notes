@@ -8,19 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.notesapp.Database.Notes
-import com.example.notesapp.R
-import com.example.notesapp.ViewModel.NotesViewModel
+import com.example.notesapp.notes.Notes
 import com.example.notesapp.databinding.FragmentCreateNoteBinding
-import com.example.notesapp.databinding.FragmentHomeBinding
+import com.example.notesapp.notes.NotesDatabase
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateNote : Fragment() {
 
     lateinit var binding:FragmentCreateNoteBinding
-    lateinit var viewModel:NotesViewModel
     lateinit var currentDate: String
 
     override fun onCreateView(
@@ -29,7 +29,6 @@ class CreateNote : Fragment() {
     ): View? {
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_create_note,container,false)
-        viewModel=NotesViewModel(requireNotNull(activity).application)
 
         return binding.root
     }
@@ -47,29 +46,33 @@ class CreateNote : Fragment() {
             it.findNavController().navigateUp()
         }
         binding.imgDone.setOnClickListener {
-            saveNote()
+            val result=saveNote()
+            if(result) {
+                findNavController().navigateUp()
+                Snackbar.make(view, "Note Creatd", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun saveNote() {
+    private fun saveNote():Boolean {
         when {
             binding.etNoteTitle.text.isNullOrEmpty() -> Toast.makeText(context, "Title Required", Toast.LENGTH_SHORT).show()
             binding.etNoteDesc.text.isNullOrEmpty() -> Toast.makeText(context, "Note Description must not be Empty", Toast.LENGTH_SHORT).show()
             else-> {
-                viewModel.insertNote(
-                    Notes(
-                        binding.etNoteTitle.text.toString(),
-                        binding.etNoteSubTitle.toString(),
-                        currentDate,
-                        binding.etNoteDesc.text.toString()
-                    )
-                )
-                binding.etNoteTitle.setText("")
-                binding.etNoteSubTitle.setText("")
-                binding.etNoteDesc.setText("")
-
+                val note=Notes()
+                note.title=binding.etNoteTitle.text.toString()
+                note.subTitle=binding.etNoteSubTitle.text.toString()
+                note.dateTime=currentDate
+                lifecycleScope.launch {
+                    NotesDatabase.getDatabase(requireContext()).noteDao().insertNotes(note)
+                }
+//                binding.etNoteTitle.setText("")
+//                binding.etNoteSubTitle.setText("")
+//                binding.etNoteDesc.setText("")
+                return true
             }
         }
+        return false
 
     }
 }
