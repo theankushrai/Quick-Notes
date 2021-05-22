@@ -3,16 +3,16 @@ package com.example.notesapp.notes
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 import java.io.Serializable
 
 @Entity(tableName = "Notes")
-class Notes: Serializable {
-
+class Notes {
     @PrimaryKey(autoGenerate = true)
-    var id:Int? = null
+    var id:Int=0
 
     @ColumnInfo(name = "title")
     var title:String? = null

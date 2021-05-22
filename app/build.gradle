@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     //parcelize
     id 'kotlin-parcelize'
+
 }
 
 //Safe args - Passing data between Fragments

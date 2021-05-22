@@ -42,6 +42,7 @@ class CreateNote : Fragment() {
         //setting date time text as current date
         binding.tvDateTime.text=currentDate
 
+
         binding.imgBack.setOnClickListener {
             it.findNavController().navigateUp()
         }
@@ -49,7 +50,7 @@ class CreateNote : Fragment() {
             val result=saveNote()
             if(result) {
                 findNavController().navigateUp()
-                Snackbar.make(view, "Note Creatd", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, "Note Created", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -66,9 +67,7 @@ class CreateNote : Fragment() {
                 lifecycleScope.launch {
                     NotesDatabase.getDatabase(requireContext()).noteDao().insertNotes(note)
                 }
-//                binding.etNoteTitle.setText("")
-//                binding.etNoteSubTitle.setText("")
-//                binding.etNoteDesc.setText("")
+
                 return true
             }
         }

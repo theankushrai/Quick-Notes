@@ -9,9 +9,9 @@ import androidx.room.RoomDatabase
 abstract class NotesDatabase : RoomDatabase() {
 
     companion object {
+        @Volatile
         var notesDatabase: NotesDatabase? = null
 
-        @Synchronized
         fun getDatabase(context: Context): NotesDatabase {
             if (notesDatabase == null) {
                 notesDatabase = Room.databaseBuilder(

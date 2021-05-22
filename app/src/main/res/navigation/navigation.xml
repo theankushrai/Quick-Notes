@@ -8,7 +8,7 @@
         android:id="@+id/homeFragment3"
         android:name="com.example.notesapp.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment3_to_createNote"
             app:destination="@id/createNote"
@@ -16,9 +16,40 @@
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/action_homeFragment3_to_viewNote"
+            app:destination="@id/viewNote"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_open_exit"/>
+
     </fragment>
     <fragment
         android:id="@+id/createNote"
         android:name="com.example.notesapp.CreateNote"
-        android:label="CreateNote" />
+        android:label="CreateNote" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/viewNote"
+        android:name="com.example.notesapp.ViewNote"
+        android:label="fragment_view_note"
+        tools:layout="@layout/fragment_view_note" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="subtitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
