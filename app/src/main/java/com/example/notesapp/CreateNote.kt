@@ -27,22 +27,16 @@ class CreateNote : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_create_note,container,false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss", Locale.getDefault())
          currentDate=sdf.format(Date())
-
         //setting date time text as current date
         binding.tvDateTime.text=currentDate
-
-
         binding.imgBack.setOnClickListener {
             it.findNavController().navigateUp()
         }
@@ -54,7 +48,6 @@ class CreateNote : Fragment() {
             }
         }
     }
-
     private fun saveNote():Boolean {
         when {
             binding.etNoteTitle.text.isNullOrEmpty() -> Toast.makeText(context, "Title Required", Toast.LENGTH_SHORT).show()
@@ -67,11 +60,9 @@ class CreateNote : Fragment() {
                 lifecycleScope.launch {
                     NotesDatabase.getDatabase(requireContext()).noteDao().insertNotes(note)
                 }
-
                 return true
             }
         }
         return false
-
     }
 }

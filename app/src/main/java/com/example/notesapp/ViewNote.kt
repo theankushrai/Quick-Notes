@@ -52,7 +52,7 @@ class ViewNote : Fragment() {
 //            }
             it.findNavController().navigateUp()
         }
-        binding.delbutton.setOnClickListener {
+//        binding.delbutton.setOnClickListener {
 
 //            lifecycleScope.launch {
 //                val note: Notes =NotesDatabase.getDatabase(requireActivity()).noteDao().getSpecificNote(args.id)
@@ -61,9 +61,9 @@ class ViewNote : Fragment() {
 //                    Snackbar.make(it,"Note Deleted!!",Snackbar.LENGTH_SHORT).show()
 //                }
 //            }
-            it.findNavController().navigateUp()
+//            it.findNavController().navigateUp()
 
-        }
+//        }
     }
 //    private fun updateNote(args: ViewNoteArgs):Boolean {
 //        when {

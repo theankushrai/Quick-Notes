@@ -27,26 +27,19 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false)
-
         binding.fabBtnCreateNote.setOnClickListener{
             it.findNavController().navigate(R.id.action_homeFragment3_to_createNote)
         }
-
         adapter = NotesAdapter()
 
         lifecycleScope.launch {
-
             val notes = NotesDatabase.getDatabase(requireContext()).noteDao().getAllNotes()
             //implementing the recyclerview and adapter
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.layoutManager=StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
             adapter.setData(notes)
             binding.recyclerView.adapter = adapter
-
         }
-
-
-
 
         val onClicked = object :NotesAdapter.OnItemClickListener{
             override fun onClicked(noteId: Int) {
@@ -58,10 +51,8 @@ class HomeFragment : Fragment() {
             }
 
         }
-
         //setting notes onclick listener
         adapter.setOnClickListener(onClicked)
-
             return binding.root
     }
 
